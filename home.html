@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Routemate - Find & Share Rides</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+       border: 3px solid #2a9b5c;
+    box-sizing: border-box;
+    min-height: 100vh;
+    }
+
+    .header {
+      background-color: #2a9b5c;
+      color: white;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border-radius: 5px;
+      font-size: 36px;
+      font-weight: bold;
+    }
+
+    .profile-circle {
+      width: 45px;
+      height: 45px;
+      background-color: white;
+      color: #2a9b5c;
+      font-size: 26px;
+      font-weight: bold;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      right: 20px;
+      cursor: pointer;
+      border: 3px solid white;
+    }
+
+    .logout-button {
+      position: absolute;
+      right: 80px;
+      background-color: white;
+      color: #2a9b5c;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 10px 15px;
+      border: 1px solid white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .logout-button:hover {
+      background-color: rgb(192, 255, 217);
+      color: #2a9b5c;
+      border: 2px solid #2a9b5c;
+    }
+
+    .faq-button {
+      position: absolute;
+      right: 180px;
+      background-color: white;
+      color: #2a9b5c;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 10px 15px;
+      border: 2px solid white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .faq-button:hover {
+      background-color: rgb(192, 255, 217);
+      color: #2a9b5c;
+      border: 2px solid #2a9b5c;
+    }
+
+    /* New action box container */
+    .action-box {
+      max-width: 600px;
+      background: white;
+      margin: 30px auto;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      padding: 30px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .ride-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .ride-item h2 {
+      color: #2a9b5c;
+      font-size: 28px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .post-button,
+    .book-button {
+      background-color: #2a9b5c;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .post-button:hover,
+    .book-button:hover {
+      background-color: #23874f;
+    }
+
+    /* INFO SECTION - SIDE BY SIDE CARDS */
+    .info-section {
+      max-width: 1500px;
+      margin: 40px auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      /* Important for side by side */
+    }
+
+    .info-card {
+      flex: 1; /* take equal width */
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column; /* stack vertically */
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .info-image img {
+      max-width: 100%;
+      width: 280px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin-bottom: 20px;
+      border: 3px solid #2a9b5c;
+    }
+
+    .info-text h3 {
+      color: #2a9b5c;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .info-text h4 {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #444;
+    }
+
+    .info-text p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .yt-link {
+      color: #0066cc;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .yt-link:hover {
+      text-decoration: underline;
+    }
+
+    .why-section {
+      padding: 40px 20px;
+      text-align: center;
+      background: white;
+    }
+
+    .why-section h1 {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #2a9b5c;
+    }
+
+    .sub-heading {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .feature {
+      text-align: center;
+    }
+
+    .feature img {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 10px;
+    }
+
+    .feature h3 {
+      font-size: 16px;
+      font-weight: normal;
+      line-height: 1.4;
+    }
+
+    .feature h3 span {
+      font-weight: bold;
+      color: #555;
+    }
+
+    .footer {
+      background-color: #373a38;
+      color: white;
+      padding: 20px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .footer a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+      color: #d4f4df;
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        font-size: 28px;
+      }
+
+      .info-section {
+        flex-direction: column;
+      }
+
+      .info-card {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      .info-image img {
+        width: 100%;
+        margin-bottom: 15px;
+      }
+
+      .action-box {
+        max-width: 90%;
+        padding: 20px;
+      }
+
+      .post-button,
+      .book-button {
+        font-size: 22px;
+        padding: 10px 20px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    &lt;&lt; Routemate &gt;&gt;
+    <button class="faq-button" onclick="location.href='welcome.html'">FAQ</button>
+    <button class="logout-button" onclick="logout()">Logout</button>
+    <div class="profile-circle" id="profile">?</div>
+  </div>
+
+  <!-- New action box with buttons -->
+  <div class="action-box" style="max-width: 600px; background: white; margin: 30px auto; border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); padding: 30px 40px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+      <h2 style="color: #2a9b5c; font-size: 28px; font-weight: bold; margin: 0;">Post a Ride</h2>
+      <button class="post-button" style="width: 160px; padding: 12px 0;" onclick="location.href='rideposting.html'">Post</button>
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h2 style="color: #2a9b5c; font-size: 28px; font-weight: bold; margin: 0;">Book a Ride</h2>
+      <button class="book-button" style="width: 160px; padding: 12px 0;" onclick="location.href='booking.html'">Book</button>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <div class="info-card">
+      <div class="info-image">
+        <img src="https://quickride.in/quickRideHomePages/quickRideCarpoolAssets/carpoolPeopleTravelCabImg.png" alt="Offer Carpool" />
+      </div>
+      <div class="info-text">
+        <h3>Offer Carpool</h3>
+        <h4>Your Route. Your Time. Your Fare</h4>
+        <p>Share your empty car seats in the carpool and cut down your commute costs. Enjoy meeting amazing new people every day in carpool, grow your network and make your boring rides a fun ride.</p>
+        
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-image">
+        <img src="https://img.freepik.com/free-vector/carpool-concept-illustration_114360-9298.jpg?semt=ais_hybrid&w=740" alt="Find Carpool" />
+      </div>
+      <div class="info-text">
+        <h3>Find Carpool</h3>
+        <h4>Convenient. Faster. Affordable</h4>
+        <p>Join like-minded people and get a comfortable car ride at the cost of bus fare. Travel safely with known and verified professionals.</p>
+        
+      </div>
+    </div>
+  </div>
+
+  <section class="why-section">
+    <h1>Why Routemate Taxi</h1>
+    <p class="sub-heading">A Taxi For All Your Travel Needs-> "On-Time & Affordable”</p>
+
+    <div class="features-grid">
+      <div class="feature">
+        <img src="https://quickride.in/quickRideHomeLandingPage/taxiAssets/whyChoose/greenTimer.svg" alt="On Time Icon">
+        <h3>On Time<br><span>Every Time</span></h3>
+      </div>
+      <div class="feature">
+        <img src="https://quickride.in/quickRideHomeLandingPage/taxiAssets/whyChoose/greenLowestFare.svg" alt="Fare Icon">
+        <h3>Lower and<br><span>Consistent fare</span></h3>
+      </div>
+      <div class="feature">
+        <img src="https://quickride.in/quickRideHomeLandingPage/taxiAssets/whyChoose/greenNoLastMin.svg" alt="No Cancel Icon">
+        <h3>No Last Minute<br><span>Cancellation</span></h3>
+      </div>
+      <div class="feature">
+        <img src="https://quickride.in/quickRideHomeLandingPage/taxiAssets/whyChoose/greenTaxiCab.svg" alt="AC Icon">
+        <h3>Assured AC<br><span>Rides</span></h3>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <p>&copy; 2025 Routemate. All rights reserved.</p>
+    <p>
+      <a href="#">Home</a> |
+      <a href="#">How it Works</a> |
+      <a href="#">FAQs</a> |
+      <a href="#">Contact Us</a> |
+      <a href="#">Privacy Policy</a> |
+      <a href="#">Terms of Service</a>
+    </p>
+    <p>Drive smarter. Travel together. 🌍</p>
+  </div>
+
+  <script>
+    function logout() {
+      alert("You have been logged out.");
+      // Add your logout logic here
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Find trusted carpool rides with Routemate — safe, easy, and eco-friendly travel companion.">
+  <title>Routemate</title>
+  <style>
+    @font-face {
+      font-family: 'Bazooka';
+      src: url('https://www.1001fonts.com/download/font/bazooka.regular.ttf') format('truetype');
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      text-align: center;
+      border: 8px solid #2a9b5c;
+      border-radius: 20px; /* ✅ Rounded outer border */
+      font-family: Arial, sans-serif;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      background-color: #2a9b5c;
+      color: white;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .header h1 {
+      font-size: 42px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .buttons {
+      position: absolute;
+      right: 20px;
+    }
+
+    .buttons button {
+      background-color: white;
+      color: #2a9b5c;
+      border: 2px solid white;
+      padding: 10px 20px;
+      margin-left: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .buttons button:hover {
+      border: 2px solid #2a9b5c;
+    }
+
+    .buttons button:active {
+      background-color:rgb(178, 209, 178);
+      color: black;
+    }
+
+    .buttons button:focus {
+      outline: 3px solid pink;
+      outline-offset: 2px;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 20px;
+    }
+
+    .image-container {
+      flex: 1.5;
+      min-width: 300px;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .welcome-text {
+      flex: 1;
+      min-width: 300px;
+      font-family: 'Bazooka', sans-serif;
+      font-size: 26px;
+      padding: 20px;
+      color: black;
+    }
+
+    .welcome-text h2 {
+      font-size: 60px;
+      margin-top: -40px;
+      color: #2a9b5c;
+    }
+
+    .section {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      margin: 30px auto;
+      box-sizing: border-box;
+      min-height: 150px;
+      display: flex;
+      justify-content: flex-start;
+      animation: fadeSlide 1s ease-in-out forwards;
+    }
+
+    .section:nth-of-type(even) {
+      justify-content: flex-end;
+    }
+
+    .section-content {
+      background-color: rgba(42, 155, 92, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+      box-sizing: border-box;
+      max-width: 60%;
+      text-align: left;
+      font-size: 18px;
+      line-height: 1.5;
+      box-shadow: 0 0 10px rgba(0, 128, 0, 0.1);
+      color: #333;
+    }
+
+    .section-header {
+      position: absolute;
+      top: 0;
+      padding: 6px 16px;
+      background: white;
+      color: #2a9b5c;
+      font-size: 24px;
+      font-weight: bold;
+      border-radius: 12px;
+      box-shadow: 0 0 5px rgba(0, 128, 0, 0.2);
+      z-index: 2;
+    }
+
+    .section:nth-of-type(odd) .section-header {
+      left: 0;
+      transform: translate(-50%, -50%);
+    }
+
+    .section:nth-of-type(even) .section-header {
+      right: 0;
+      transform: translate(50%, -50%);
+    }
+
+    @keyframes fadeSlide {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .quickride-section, .carpool-section, .stats-section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .quickride-section {
+      background-color: #f8f8f8;
+    }
+
+    .quickride-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .quickride-text{
+      flex: 1;
+      min-width: 10px;
+    }
+    .quickride-image img {
+  max-width: 450px;
+  height: auto;
+  
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  border: 4px solid #2a9b5c;
+}
+
+
+    .quickride-text h2, .carpool-section h2 {
+      color: #2a9b5c;
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+
+    .testimonial {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .testimonial img {
+      width: 20px;
+      margin-right: 10px;
+      padding:5px;
+      border-radius: 5px;
+    }
+
+    .stats-section {
+      background-color: #2a9b5c;
+      color: white;
+      padding:10px;
+    }
+
+    .stats-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
+    .stat {
+      text-align: center;
+      margin: 20px;
+    }
+
+    .stat img {
+      width: 25px;
+    }
+
+    .carpool-benefits {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 0 30px; /* space from the sides */
+}
+
+.benefit img {
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+.benefit {
+  max-width: 380px;
+  text-align: center;
+  padding: 10px;
+}
+
+
+    .footer {
+      background-color: #373a38;
+      color: white;
+      padding: 5px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .footer a {
+      color: white;
+      margin: 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+      color: #d4f4df;
+    }
+
+    @media (max-width: 768px) {
+      .container { flex-direction: column; }
+      .section { flex-direction: column; align-items: center; }
+      .section-content { max-width: 90% !important; text-align: center !important; }
+      .section-header { position: relative !important; transform: none !important; margin-bottom: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <h1>&lt;&lt; Routemate &gt;&gt;</h1>
+    <div class="buttons">
+      <button onclick="location.href='login.html'">Login</button>
+      <button onclick="location.href='signup.html'">Sign Up</button>
+    </div>
+  </div>
+
+  <!-- Welcome -->
+  <div class="container">
+    <div class="image-container">
+      <img src="https://thumbs.dreamstime.com/b/yellow-car-route-city-flat-geolocation-icon-pointer-travel-companion-line-cityscape-building-modern-economy-143195889.jpg" alt="Carpool Image" />
+    </div>
+    <div class="welcome-text">
+      <h2>...Welcome...</h2>
+      <p>Are you ready to take a smarter, greener, and more fun ride?</p>
+      <p>Connect with people, share journeys, and redefine the way you commute!</p>
+      <p>Let's go drive 🚗🌿</p>
+    </div>
+  </div>
+<div style="
+  display:inline-flex;
+  background: white;
+  color: #2a9b5c;
+  font-size: 28px;
+  font-weight: bold;
+  padding: 10px 24px;
+  border-radius: 12px;
+  box-shadow: 0 0 5px rgba(0, 128, 0, 0.2);
+  margin: 50px auto 10px;
+  position: relative;
+  z-index: 2;
+">
+  ABOUT ROUTEMATE
+</div>
+  <!-- ✅ Moved Stats Section here -->
+  <div class="stats-section">
+     
+    <h3>Routemate is India’s Largest & Top Rated Carpool Network</h3>
+    <div class="stats-grid">
+      <div class="stat"><img src="https://img.icons8.com/ios-filled/50/ffffff/group.png" alt="Users"><p>4.5M+ users</p></div>
+      <div class="stat"><img src="https://img.icons8.com/ios-filled/50/ffffff/car.png" alt="Rides"><p>40M+ rides shared</p></div>
+      <div class="stat"><img src="https://img.icons8.com/ios-filled/50/ffffff/leaf.png" alt="CO2"><p>85K+ tons CO₂ saved</p></div>
+      <div class="stat"><img src="https://img.icons8.com/ios-filled/50/ffffff/star.png" alt="Rating"><p>4.6★ rating</p></div>
+    </div>
+  </div>
+
+  <!-- Feature Sections -->
+  <div class="section">
+    <div class="section-header">Trust who you travel with</div>
+    <div class="section-content">
+      <p>We verify profiles and reviews to ensure safe and reliable rides. You're in good company on every trip.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">Booking is easy</div>
+    <div class="section-content">
+      <p>Search your route, pick a date, and choose a ride that suits you — booking is just a tap away.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">Stay safe from scams</div>
+    <div class="section-content">
+      <p>We actively monitor and provide guidelines to report suspicious behavior and keep travel safe.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">FAQs</div>
+    <div class="section-content">
+      <p><strong>How do I book?</strong> Just search your route, pick a date and choose the ride that suits you.</p>
+      <p><strong>How do I offer a ride?</strong> Add your trip details and share — it's that simple.</p>
+    </div>
+  </div>
+
+  <!-- Quick Ride Section -->
+  <!-- Quick Ride Section -->
+<div class="quickride-section">
+  <div class="quickride-content" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 20px;">
+    
+    <!-- Video on the left -->
+    <div class="quickride-video" style="flex: 1; min-width: 280px; text-align: center;">
+      <iframe width="100%" height="415" src="https://www.youtube.com/embed/Usf-3ugPZRo"
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+    
+    <!-- Text in the center -->
+    <div class="quickride-text" style="flex: 1; min-width: 500px; font-size: 20px; text-align:center;">
+  <h2 style="color: #2a9b5c;">What is - Carpool & Bikepool</h2>
+  <ul style="list-style-type: disc; padding-left: 30px;font-size: 20px; text-align:left;line-height: 2;">
+    <li>Connect with like-minded professionals and share rides easily.</li>
+    <li>Save cost, time, and reduce your carbon footprint.</li>
+    <li>Routemate is your smart and green travel companion.</li>
+    <li>Perfect for commuting to work, college, or weekend trips.</li>
+    <li>Find reliable carpools with verified users.</li>
+  </ul>
+</div>
+
+    
+    <!-- Image on the right -->
+    
+</div>
+
+
+  <!-- Why Carpool -->
+  <div class="carpool-section">
+    <h2>Why Should We Carpool</h2>
+    <p>Reduce traffic, save fuel, and create a cleaner environment. Plus, meet new people on the way!</p>
+    <div class="carpool-benefits">
+      <div class="benefit">
+        <img src="https://quickride.in/quickRideHomePages/quickRideCarpoolAssets/saveEnvironment.png" alt="Environment" />
+        <p>Save Environment</p>
+      </div>
+      <div class="benefit">
+        <img src="https://quickride.in/quickRideHomePages/quickRideCarpoolAssets/traffic.png" alt="Traffic" />
+        <p>Reduce Traffic</p>
+      </div>
+      <div class="benefit">
+        <img src="https://quickride.in/quickRideHomePages/quickRideCarpoolAssets/carpoolPassingerImg.png" alt="Friends" />
+        <p>Make Friends</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>&copy; 2025 Routemate. All rights reserved.</p>
+    <p>
+      <a href="#">Home</a> |
+      <a href="#">How it Works</a> |
+      <a href="#">FAQs</a> |
+      <a href="#">Contact Us</a> |
+      <a href="#">Privacy Policy</a> |
+      <a href="#">Terms of Service</a>
+    </p>
+    <p>Drive smarter. Travel together. 🌍</p>
+  </div>
+
+</body>
+</html>
+
+

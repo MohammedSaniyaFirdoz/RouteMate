@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book a Ride - Routemate</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+      text-align: center;
+    }
+
+    .header {
+      background-color: #2a9b5c;
+      color: white;
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .header h1 {
+      margin: 0;
+    }
+
+    .header .right-section {
+      position: absolute;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .profile-circle {
+      background-color: white;
+      color: #2a9b5c;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      cursor: default;
+      user-select: none;
+    }
+
+    .button {
+      background-color: white;
+      color: #2a9b5c;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .button:hover {
+      background-color: white;
+      color: #2a9b5c;
+    }
+
+    .container {
+      width: 60%;
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px #81948a;
+      text-align: center;
+    }
+
+    h2, h3 {
+      color: #2a9b5c;
+      text-align: center;
+    }
+
+    .ride {
+      border: 1px solid #2a9b5c;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 8px;
+      background-color: #e5fbe7; /* Very light pale green */
+      font-size: 16px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .ride .ride-details {
+      width: 100%;
+      padding-bottom: 10px;
+    }
+
+    .ride .ride-actions {
+      align-self: flex-end;
+    }
+
+    .ride .ride-actions button {
+      background-color: #2a9b5c;
+      color: white;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+      margin-left: 10px;
+    }
+
+    .ride .ride-actions button:hover {
+      background-color: white;
+      color: #2a9b5c;
+      border: 1px solid #2a9b5c;
+    }
+
+    .ride .ride-actions .cancel-button {
+      background-color: red;
+    }
+
+    .ride .ride-actions .cancel-button:hover {
+      background-color: darkred;
+      color: white;
+    }
+
+    .footer {
+      background-color: #373a38;
+      color: white;
+      padding: 5px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .footer a {
+      color: white;
+      margin: 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+      color: #d4f4df;
+    }
+
+    #successMessage {
+      color: #2a9b5c;
+      font-weight: bold;
+      margin: 15px 0;
+      text-align: center;
+      display: none;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🚗 Routemate - Book a Ride 🚗</h1>
+    <div class="right-section">
+      <button class="button" id="faqBtn">FAQ</button>
+      <div class="profile-circle" id="profileCircle">U</div>
+      <button class="button" id="logoutBtn">Logout</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Available Rides to Book</h2>
+    <div id="availableRides"></div>
+
+    <h3>Your Booked Rides</h3>
+    <div id="bookedRides"></div>
+
+    <div id="successMessage"></div>
+  </div>
+
+  <div class="footer">
+    <p>&copy; 2025 Routemate. All rights reserved.</p>
+    <p>
+      <a href="#">Home</a> |
+      <a href="#">How it Works</a> |
+      <a href="#">FAQs</a> |
+      <a href="#">Contact Us</a> |
+      <a href="#">Privacy Policy</a> |
+      <a href="#">Terms of Service</a>
+    </p>
+    <p>Drive smarter. Travel together. 🌍</p>
+  </div>
+
+
+  <script>
+    const profileCircle = document.getElementById('profileCircle');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const faqBtn = document.getElementById('faqBtn');
+    const availableRidesDiv = document.getElementById('availableRides');
+    const bookedRidesDiv = document.getElementById('bookedRides');
+    const successMessage = document.getElementById('successMessage');
+
+    function setProfileCircle() {
+      const email = localStorage.getItem('userEmail');
+      profileCircle.textContent = email ? email[0].toUpperCase() : 'U';
+    }
+    setProfileCircle();
+
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('userEmail');
+      window.location.href = 'login.html';
+    });
+
+    faqBtn.addEventListener('click', () => {
+      window.location.href = 'welcome.html';
+    });
+
+    function loadRides() {
+      const rides = JSON.parse(localStorage.getItem('postedRides')) || [];
+      const bookedRides = JSON.parse(localStorage.getItem('bookedRides')) || [];
+
+      // Filter out booked rides from postedRides
+      const availableRides = rides.filter(ride => {
+        return !bookedRides.some(b => 
+          b.from === ride.from &&
+          b.to === ride.to &&
+          b.date === ride.date &&
+          b.time === ride.time
+        );
+      });
+
+      availableRidesDiv.innerHTML = availableRides.length === 0
+        ? "<p style='color: gray;'>No rides available to book right now.</p>"
+        : '';
+
+      availableRides.forEach((ride, index) => {
+        const rideDiv = document.createElement('div');
+        rideDiv.className = 'ride';
+        rideDiv.innerHTML = `
+          <div class="ride-details">
+            <b>From:</b> ${ride.from}<br>
+            <b>To:</b> ${ride.to}<br>
+            <b>Date:</b> ${ride.date}<br>
+            <b>Time:</b> ${ride.time}<br>
+            <b>Seats Available:</b> ${ride.seats}
+          </div>
+          <div class="ride-actions">
+            <button onclick="bookRide(${index})">Book Ride</button>
+          </div>
+        `;
+        availableRidesDiv.appendChild(rideDiv);
+      });
+    }
+
+    function loadBookedRides() {
+      const bookedRides = JSON.parse(localStorage.getItem('bookedRides')) || [];
+      bookedRidesDiv.innerHTML = bookedRides.length === 0
+        ? "<p style='color: gray;'>You have no booked rides.</p>"
+        : '';
+
+      bookedRides.forEach((ride, index) => {
+        const rideDiv = document.createElement('div');
+        rideDiv.className = 'ride';
+        rideDiv.innerHTML = `
+          <div class="ride-details">
+            <b>From:</b> ${ride.from}<br>
+            <b>To:</b> ${ride.to}<br>
+            <b>Date:</b> ${ride.date}<br>
+            <b>Time:</b> ${ride.time}<br>
+            <b>Seats Booked:</b> ${ride.seats}
+          </div>
+          <div class="ride-actions">
+            <button class="cancel-button" onclick="cancelBooking(${index})">Cancel Booking</button>
+          </div>
+        `;
+        bookedRidesDiv.appendChild(rideDiv);
+      });
+    }
+
+    function bookRide(index) {
+      let postedRides = JSON.parse(localStorage.getItem('postedRides')) || [];
+      let bookedRides = JSON.parse(localStorage.getItem('bookedRides')) || [];
+
+      const rideToBook = postedRides[index];
+      if (parseInt(rideToBook.seats) <= 0) {
+        alert("No seats available for this ride.");
+        return;
+      }
+
+      rideToBook.seats = (parseInt(rideToBook.seats) - 1).toString();
+
+      bookedRides.push({
+        from: rideToBook.from,
+        to: rideToBook.to,
+        date: rideToBook.date,
+        time: rideToBook.time,
+        seats: 1
+      });
+
+      localStorage.setItem('bookedRides', JSON.stringify(bookedRides));
+      localStorage.setItem('postedRides', JSON.stringify(postedRides));
+
+      successMessage.textContent = "Ride booked successfully!";
+      successMessage.style.display = "block";
+
+      loadRides();
+      loadBookedRides();
+
+      setTimeout(() => {
+        successMessage.style.display = "none";
+      }, 4000);
+    }
+
+    function cancelBooking(index) {
+      if (!confirm("Are you sure you want to cancel this booking?")) return;
+
+      let bookedRides = JSON.parse(localStorage.getItem('bookedRides')) || [];
+      let postedRides = JSON.parse(localStorage.getItem('postedRides')) || [];
+
+      const canceledRide = bookedRides.splice(index, 1)[0];
+
+      postedRides.push({
+        from: canceledRide.from,
+        to: canceledRide.to,
+        date: canceledRide.date,
+        time: canceledRide.time,
+        seats: "1"
+      });
+
+      localStorage.setItem('bookedRides', JSON.stringify(bookedRides));
+      localStorage.setItem('postedRides', JSON.stringify(postedRides));
+
+      successMessage.textContent = "Booking cancelled successfully.";
+      successMessage.style.display = "block";
+
+      loadRides();
+      loadBookedRides();
+
+      setTimeout(() => {
+        successMessage.style.display = "none";
+      }, 4000);
+    }
+
+    // Make functions accessible in inline HTML
+    window.bookRide = bookRide;
+    window.cancelBooking = cancelBooking;
+
+    // Initial load
+    loadRides();
+    loadBookedRides();
+  </script>
+</body>
+</html>

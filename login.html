@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - Routemate</title>
+  <style>
+    @font-face {
+      font-family: 'Bazooka';
+      src: url('https://www.1001fonts.com/download/font/bazooka.regular.ttf') format('truetype');
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      text-align: center;
+      border: 10px solid #2a9b5c;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .header {
+      background-color: #2a9b5c;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    .header h1 {
+      font-size: 42px;
+      font-weight: bold;
+      margin: 0;
+    }
+    .buttons {
+      position: absolute;
+      right: 20px;
+      display: flex;
+      align-items: center;
+    }
+    .buttons p {
+      color: white;
+      font-size: 18px;
+      margin-right: 10px;
+      font-weight: bold;
+    }
+    .buttons button {
+      background-color: white;
+      color: #2a9b5c;
+      border: 2px solid white;
+      padding: 10px 20px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .buttons button:hover {
+      background-color: white;
+      color: #2a9b5c;
+      border: 2px solid #2a9b5c;
+    }
+    .shadow-heading {
+      font-size: 42px;
+      font-weight: bold;
+      color: #2a9b5c;
+      text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      margin-top: 50px;
+      margin-bottom: 10px;
+      font-family: 'Bazooka', sans-serif;
+    }
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+    }
+    .login-box {
+      border: 5px solid #2a9b5c;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      width: 400px;
+    }
+    .login-box h2 {
+      font-family: 'Bazooka', sans-serif;
+      font-size: 28px;
+      color: #2a9b5c;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      position: relative;
+    }
+    .form-group label {
+      font-size: 18px;
+      font-weight: bold;
+      color: #2a9b5c;
+      margin-right: 10px;
+      flex: 1;
+      text-align: left;
+    }
+    .form-group input {
+      padding: 8px;
+      font-size: 16px;
+      border: 2px solid #2a9b5c;
+      border-radius: 5px;
+      width: 220px;
+      outline: none;
+      flex: 2;
+    }
+    .error-message {
+      color: red;
+      font-size: 14px;
+      position: absolute;
+      bottom: -18px;
+      left: 0;
+      width: 100%;
+      text-align: left;
+      padding-left: 10px;
+      font-weight: bold;
+    }
+    .login-button {
+      background-color: #2a9b5c;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 10px;
+    }
+    .login-button:hover {
+      background-color: white;
+      color: #2a9b5c;
+      border: 2px solid #2a9b5c;
+    }
+    .login-button:active {
+      background-color: white;
+      color: black;
+    }
+    .footer {
+      background-color: #373a38;
+      color: white;
+      padding: 5px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .footer a {
+      color: white;
+      margin: 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+      color: #d4f4df;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>&lt;&lt; Routemate &gt;&gt;</h1>
+    <div class="buttons">
+      <p>😔 No account 👉</p>
+      <a href="signup.html"><button>Sign Up</button></a>
+    </div>
+  </div>
+
+  <div class="shadow-heading">👉Login👈</div>
+
+  <div class="login-container">
+    <div class="login-box">
+      <h2>Let's wrap up login..👇</h2>
+      <form id="loginForm" novalidate>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required />
+          <div class="error-message" id="emailError"></div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" placeholder="Enter your password" required />
+          <div class="error-message" id="passwordError"></div>
+        </div>
+        <button type="submit" class="login-button">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>&copy; 2025 Routemate. All rights reserved.</p>
+    <p>
+      <a href="#">Home</a> |
+      <a href="#">How it Works</a> |
+      <a href="#">FAQs</a> |
+      <a href="#">Contact Us</a> |
+      <a href="#">Privacy Policy</a> |
+      <a href="#">Terms of Service</a>
+    </p>
+    <p>Drive smarter. Travel together. 🌍</p>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const emailError = document.getElementById('emailError');
+    const passwordError = document.getElementById('passwordError');
+    const emailSuggestion = document.getElementById('emailSuggestion');
+
+emailInput.addEventListener('input', () => {
+  const val = emailInput.value.trim();
+
+  if (!val) {
+    showError(emailError, 'Email is required.');
+    emailSuggestion.textContent = '';
+  } else {
+    // Check if user typed '@'
+    const atIndex = val.indexOf('@');
+
+    if (atIndex === -1) {
+      // User hasn't typed '@' yet, suggest gmail.com
+      emailSuggestion.textContent = val + '@gmail.com';
+    } else {
+      // User typed domain, check if domain starts with gmail.com
+      const domain = val.slice(atIndex + 1);
+      if ('gmail.com'.startsWith(domain) && domain !== 'gmail.com') {
+        emailSuggestion.textContent = val.slice(0, atIndex + 1) + 'gmail.com';
+      } else {
+        emailSuggestion.textContent = '';
+      }
+    }
+
+    // Validate email format
+    if (!validateEmail(val)) {
+      showError(emailError, 'Please enter a valid email.');
+    } else {
+      clearError(emailError);
+    }
+  }
+});
+
+// Allow user to accept suggestion by pressing Tab or Right Arrow key
+emailInput.addEventListener('keydown', (e) => {
+  if (emailSuggestion.textContent) {
+    if (e.key === 'Tab' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      emailInput.value = emailSuggestion.textContent;
+      emailSuggestion.textContent = '';
+    }
+  }
+});
+
+
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    }
+
+    function showError(element, message) {
+      element.textContent = message;
+    }
+
+    function clearError(element) {
+      element.textContent = '';
+    }
+
+    emailInput.addEventListener('input', () => {
+      const val = emailInput.value.trim();
+      if (!val) {
+        showError(emailError, 'Email is required.');
+      } else if (!validateEmail(val)) {
+        showError(emailError, 'Please enter a valid email.');
+      } else {
+        clearError(emailError);
+      }
+    });
+
+    passwordInput.addEventListener('input', () => {
+      const val = passwordInput.value;
+      if (!val) {
+        showError(passwordError, 'Password is required.');
+      } else if (val.length < 8) {
+        showError(passwordError, 'Password must be at least 8 characters.');
+      } else {
+        clearError(passwordError);
+      }
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+
+      let isValid = true;
+
+      if (!email) {
+        showError(emailError, 'Email is required.');
+        isValid = false;
+      } else if (!validateEmail(email)) {
+        showError(emailError, 'Please enter a valid email.');
+        isValid = false;
+      } else {
+        clearError(emailError);
+      }
+
+      if (!password) {
+        showError(passwordError, 'Password is required.');
+        isValid = false;
+      } else if (password.length < 8) {
+        showError(passwordError, 'Password must be at least 8 characters.');
+        isValid = false;
+      } else {
+        clearError(passwordError);
+      }
+
+      if (isValid) {
+        // Store email to localStorage and redirect
+        localStorage.setItem("userEmail", email);
+        window.location.href = "home.html";
+      }
+    });
+  </script>
+</body>
+</html>

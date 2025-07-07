@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signup - Routemate</title>
+  <style>
+    @font-face {
+      font-family: 'Bazooka';
+      src: url('https://www.1001fonts.com/download/font/bazooka.regular.ttf') format('truetype');
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      text-align: center;
+      border: 10px solid#2a9b5c;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .header {
+      background-color:#2a9b5c;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .header h1 {
+      font-size: 42px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .buttons {
+      position: absolute;
+      right: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .buttons p {
+      color: white;
+      font-size: 18px;
+      margin-right: 10px;
+      font-weight: bold;
+    }
+
+    .buttons button {
+      background-color: white;
+      color: #2a9b5c;
+      border: 2px solid white;
+      padding: 10px 20px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .buttons button:hover {
+      background-color: white;
+      color: #2a9b5c;
+      border: 2px solid white;
+    }
+
+    .shadow-heading {
+      font-size: 42px;
+      font-weight: bold;
+      color: #2a9b5c;
+      text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+      display: inline-block;
+      margin-top: 50px;
+      font-family: 'Bazooka', sans-serif;
+    }
+
+    .signup-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+    }
+
+    .signup-box {
+      border: 5px solid #2a9b5c;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      width: 400px;
+    }
+
+    .signup-box h2 {
+      font-family: 'Bazooka', sans-serif;
+      font-size: 28px;
+      color: #2a9b5c;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      font-size: 18px;
+      font-weight: bold;
+      color: #2a9b5c;
+      margin-right: 10px;
+    }
+
+    .form-group input[type="email"],
+    .form-group input[type="password"] {
+      padding: 8px;
+      font-size: 16px;
+      border: 2px solid #2a9b5c;
+      border-radius: 5px;
+      width: 200px;
+      outline: none;
+    }
+
+    .form-group input[type="checkbox"] {
+      width: auto;
+      cursor: pointer;
+    }
+
+    .signup-button {
+      background-color: #2a9b5c;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .signup-button:hover {
+      background-color: white;
+      color: #2a9b5c;
+      border: 2px solid #2a9b5c;
+    }
+
+    .signup-button:active {
+      background-color: white;
+      color: black;
+    }
+
+    .footer {
+      background-color: #373a38;
+      color: white;
+      padding: 5px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .footer a {
+      color: white;
+      margin: 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+      color: #d4f4df;
+    }
+
+    #messageBox {
+      display: none;
+      background-color: #d4edda;
+      color: #155724;
+      border: 2px solid #c3e6cb;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    #errorMessage {
+      color: red;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>&lt;&lt; Routemate &gt;&gt;</h1>
+    <div class="buttons">
+      <p>Have an account 👉</p>
+      <a href="login.html"><button>Login</button></a>
+    </div>
+  </div>
+
+  <div class="shadow-heading">👉Signup👈</div>
+
+  <div class="signup-container">
+    <div class="signup-box">
+      <div id="messageBox" role="alert" aria-live="assertive"></div>
+      <h2>Let's finish signup...👇</h2>
+      <form id="signupForm" novalidate>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" placeholder="Enter your password" required />
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password:</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required />
+        </div>
+        <div class="form-group" style="justify-content: flex-start;">
+          <input type="checkbox" id="showPassword" />
+          <label for="showPassword" style="font-weight: normal; color: #2a9b5c; margin-left: 8px; cursor: pointer;">Show Passwords</label>
+        </div>
+        <div id="errorMessage" role="alert" aria-live="assertive"></div>
+        <button type="submit" class="signup-button">Sign Up</button>
+      </form>
+    </div>
+  </div>
+
+   <div class="footer">
+    <p>&copy; 2025 Routemate. All rights reserved.</p>
+    <p>
+      <a href="#">Home</a> |
+      <a href="#">How it Works</a> |
+      <a href="#">FAQs</a> |
+      <a href="#">Contact Us</a> |
+      <a href="#">Privacy Policy</a> |
+      <a href="#">Terms of Service</a>
+    </p>
+    <p>Drive smarter. Travel together. 🌍</p>
+  </div>
+
+  <script>
+  const form = document.getElementById('signupForm');
+  const errorMessage = document.getElementById('errorMessage');
+  const successBox = document.getElementById('messageBox');
+  const showPasswordCheckbox = document.getElementById('showPassword');
+  const emailInput = form.email;
+  const passwordInput = form.password;
+  const confirmPasswordInput = form.confirmPassword;
+
+  function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  }
+
+  // Show error for a specific input field
+  function showError(message) {
+    errorMessage.textContent = message;
+    successBox.style.display = 'none';
+  }
+
+  // Clear error messages
+  function clearError() {
+    errorMessage.textContent = '';
+  }
+
+  // Real-time validations
+  emailInput.addEventListener('input', () => {
+    if (!emailInput.value.trim()) {
+      showError("Please enter your email address.");
+    } else if (!validateEmail(emailInput.value.trim())) {
+      showError("Please enter a valid email address.");
+    } else {
+      clearError();
+    }
+  });
+
+  passwordInput.addEventListener('input', () => {
+    const val = passwordInput.value.trim();
+    if (!val) {
+      showError("Please enter a password.");
+    } else if (val.length < 8) {
+      showError("Password must be at least 8 characters long.");
+    } else {
+      clearError();
+    }
+  });
+
+  confirmPasswordInput.addEventListener('input', () => {
+    const val = confirmPasswordInput.value.trim();
+    if (!val) {
+      showError("Please confirm your password.");
+    } else if (val !== passwordInput.value.trim()) {
+      showError("Passwords do not match.");
+    } else {
+      clearError();
+    }
+  });
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+    const confirmPassword = confirmPasswordInput.value.trim();
+
+    clearError();
+    successBox.style.display = 'none';
+
+    if (!email) {
+      showError("Please enter your email address.");
+      emailInput.focus();
+      return;
+    }
+    if (!validateEmail(email)) {
+      showError("Please enter a valid email address.");
+      emailInput.focus();
+      return;
+    }
+
+    if (!password) {
+      showError("Please enter a password.");
+      passwordInput.focus();
+      return;
+    }
+    if (password.length < 8) {
+      showError("Password must be at least 8 characters long.");
+      passwordInput.focus();
+      return;
+    }
+
+    if (!confirmPassword) {
+      showError("Please confirm your password.");
+      confirmPasswordInput.focus();
+      return;
+    }
+    if (password !== confirmPassword) {
+      showError("Passwords do not match.");
+      confirmPasswordInput.focus();
+      return;
+    }
+
+    // If all validations pass
+    clearError();
+    successBox.textContent = "✅ Successfully signed up. Redirecting to login...";
+    successBox.style.display = 'block';
+
+    form.reset();
+
+    setTimeout(() => {
+      window.location.href = "login.html";
+    }, 3000);
+  });
+
+  showPasswordCheckbox.addEventListener('change', () => {
+    const type = showPasswordCheckbox.checked ? 'text' : 'password';
+    passwordInput.type = type;
+    confirmPasswordInput.type = type;
+  });
+</script>
+
+</body>
+</html>
